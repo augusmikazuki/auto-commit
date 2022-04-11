@@ -1,24 +1,24 @@
 name: Auto commit
 
-on:    
+on:
   schedule:
-  - cron: "0 * * * *"
+    - cron: "0 * * * *"
 
 jobs:
   auto_commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2      
+      - uses: actions/checkout@v2
       - name: Modify last update
         run: |
           d=`date '+%Y-%m-%dT%H:%M:%SZ'`
-          echo $d > LAST_UPDATED 
+          echo $d > LAST_UPDATED
       - name: Commit changes
         run: |
           git config --local user.email "mashurimusa@gmail.com"
           git config --local user.name "AugusMikazuki"
           git add -A
-          
+
           arr[0]="feat: 😂 auto commit"
           arr[1]="feat: 😱 auto commit"
           arr[2]="feat: 👿 auto commit"
@@ -27,8 +27,8 @@ jobs:
           arr[5]="feat: 🙈 auto commit"
           arr[6]="feat: 🐐 auto commit"
           arr[7]="feat: 🚀 auto commit"
-          
+
           rand=$[$RANDOM % ${#arr[@]}]
-          
+
           git commit -m "${arr[$rand]}"
           git push
